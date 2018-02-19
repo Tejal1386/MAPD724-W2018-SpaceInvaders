@@ -28,6 +28,9 @@
 		E462EA27203761FA00D40977 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = E462EA26203761FA00D40977 /* Label.swift */; };
 		E462EA292037660100D40977 /* Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = E462EA282037660100D40977 /* Space.swift */; };
 		E462EA2B20376A1500D40977 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = E462EA2A20376A1500D40977 /* Button.swift */; };
+		E4FDCF61203AA38F00812A44 /* CollisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FDCF60203AA38F00812A44 /* CollisionManager.swift */; };
+		E4FDCF63203AA3D800812A44 /* ScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FDCF62203AA3D800812A44 /* ScoreManager.swift */; };
+		E4FDCF65203AA44600812A44 /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FDCF64203AA44600812A44 /* Distance.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +57,9 @@
 		E462EA26203761FA00D40977 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		E462EA282037660100D40977 /* Space.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Space.swift; sourceTree = "<group>"; };
 		E462EA2A20376A1500D40977 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		E4FDCF60203AA38F00812A44 /* CollisionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionManager.swift; sourceTree = "<group>"; };
+		E4FDCF62203AA3D800812A44 /* ScoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreManager.swift; sourceTree = "<group>"; };
+		E4FDCF64203AA44600812A44 /* Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Distance.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +92,7 @@
 		E45BCF14203156DD0084CA89 /* MAPD724-W2018-SpaceInvaders */ = {
 			isa = PBXGroup;
 			children = (
+				E4FDCF5F203A9E2F00812A44 /* Manager */,
 				E462EA232037619400D40977 /* Objects */,
 				E462EA052037262D00D40977 /* Scenes */,
 				E45BCF15203156DD0084CA89 /* AppDelegate.swift */,
@@ -124,8 +131,18 @@
 				E462EA26203761FA00D40977 /* Label.swift */,
 				E462EA2A20376A1500D40977 /* Button.swift */,
 				E44AF06E2038C564004C9E0D /* Bullet.swift */,
+				E4FDCF64203AA44600812A44 /* Distance.swift */,
 			);
 			path = Objects;
+			sourceTree = "<group>";
+		};
+		E4FDCF5F203A9E2F00812A44 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				E4FDCF60203AA38F00812A44 /* CollisionManager.swift */,
+				E4FDCF62203AA3D800812A44 /* ScoreManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,7 +224,9 @@
 			files = (
 				E45BCF1C203156DD0084CA89 /* GameScene.swift in Sources */,
 				E462EA1E203760CE00D40977 /* GameStartScene.swift in Sources */,
+				E4FDCF61203AA38F00812A44 /* CollisionManager.swift in Sources */,
 				E462EA292037660100D40977 /* Space.swift in Sources */,
+				E4FDCF65203AA44600812A44 /* Distance.swift in Sources */,
 				E44AF06C2038B978004C9E0D /* AlienShip.swift in Sources */,
 				E462EA2B20376A1500D40977 /* Button.swift in Sources */,
 				E44AF06D2038B978004C9E0D /* Planet.swift in Sources */,
@@ -216,6 +235,7 @@
 				E44AF0732038D045004C9E0D /* GameInstructionScene.swift in Sources */,
 				E44AF0692038B72A004C9E0D /* SpaceShip.swift in Sources */,
 				E45BCF16203156DD0084CA89 /* AppDelegate.swift in Sources */,
+				E4FDCF63203AA3D800812A44 /* ScoreManager.swift in Sources */,
 				E462EA25203761C900D40977 /* GameObject.swift in Sources */,
 				E44AF06F2038C564004C9E0D /* Bullet.swift in Sources */,
 			);
