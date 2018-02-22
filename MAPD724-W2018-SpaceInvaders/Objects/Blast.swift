@@ -1,17 +1,18 @@
 //
-//  Bullet.swift
+//  Blast.swift
 //  MAPD724-W2018-SpaceInvaders
 //
-//  Created by Tejal Patel on 2018-02-17.
+//  Created by Tejal Patel on 2018-02-20.
 //  Copyright © 2018 Centennial College. All rights reserved.
 //
 
 import SpriteKit
 
-class Bullet: GameObject {
+class Blast: GameObject {
+
     // Constructor
     init(){
-        super.init(imageString: "Bullet", initialScale: 1.0)
+        super.init(imageString: "blast", initialScale: 1.0)
         Start()
     }
     

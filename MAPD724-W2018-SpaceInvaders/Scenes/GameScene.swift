@@ -24,14 +24,17 @@ class GameScene: SKScene {
     var planet1Sprite: Planet?
     var planet2Sprite: Planet?
     var planet3Sprite: Planet?
-    var alienShip1Sprite: [AlienShip] = []
-     var alienShip2Sprite: AlienShip?
-     var alienShip3Sprite: AlienShip?
+    var alienShip1Sprite: AlienShip?
+    var alienShip2Sprite: AlienShip?
+    var alienShip3Sprite: AlienShip?
     var bulletSprite: Bullet?
-    var buttonStartSprite: Button?
-    var buttonInstructuinSprite: Button?
-    var gameOverLabel: Label?
-    var pressAnyKeyLabel: Label?
+    var blastSprite: Blast?
+    var possibleAliens = ["AlienShip1", "AlienShip2", "AlienShip3"]
+    let alienCategory:UInt32 = 0x1 << 1
+    let photonTorpedoCategory:UInt32 = 0x1 << 0
+    
+    var gameTimer:Timer!
+    
     var livesLabel: Label?
     var scoreLabel: Label?
     
@@ -40,6 +43,12 @@ class GameScene: SKScene {
         
         screenWidth = frame.width
         screenHeight = frame.height
+        
+        self.bulletSprite = Bullet()
+        self.bulletSprite?.name = "bullet"
+        self.blastSprite = Blast()
+        self.blastSprite?.name = "bullet"
+        
         
         //add space
         self.spaceSprite = Space()
@@ -51,6 +60,7 @@ class GameScene: SKScene {
         self.spaceShipSprite?.name = "spaceship"
         self.spaceShipSprite?.position = CGPoint(x: screenWidth! * 0.5, y: 50)
         self.addChild(self.spaceShipSprite!)
+        
         
         // add Planet1
         self.planet1Sprite = Planet(ImageString: "Planet1", InitialScale: 1.2)
@@ -65,12 +75,28 @@ class GameScene: SKScene {
         self.addChild(self.planet3Sprite!)
         
       
-        //add clouds
+       /* //add Alienship
         for index in 0...2{
-            let alienship: AlienShip = AlienShip(ImageString: "AlienShip" + String(index+1), InitialScale: 1.0)
-            alienShip1Sprite.append(alienship)
-            self.addChild(alienShip1Sprite[index])
-        }
+         let alienship: AlienShip = AlienShip(ImageString: "AlienShip" + String(index+1), InitialScale: 1.5)
+         alienShip1Sprite.append(alienship)
+         self.addChild(alienShip1Sprite[index])
+         self.alienShip1Sprite[index].name = "AlienShip" + String(index+1)
+         
+         }*/
+        
+        // add AlienShip
+        self.alienShip1Sprite = AlienShip(ImageString: "AlienShip1", InitialScale: 1.2)
+        self.alienShip1Sprite?.name = "AlienShip1"
+        self.addChild(self.alienShip1Sprite!)
+        
+        
+        self.alienShip2Sprite = AlienShip(ImageString: "AlienShip2", InitialScale: 1.2)
+        self.alienShip2Sprite?.name = "AlienShip2"
+        self.addChild(self.alienShip2Sprite!)
+        
+        self.alienShip3Sprite = AlienShip(ImageString: "AlienShip3", InitialScale: 1.2)
+        self.alienShip3Sprite?.name = "AlienShip3"
+        self.addChild(self.alienShip3Sprite!)
         
         
         //add label
@@ -104,7 +130,7 @@ class GameScene: SKScene {
         } */
     }
     
-    
+ 
     
     func touchDown(atPoint pos : CGPoint) {
         self.spaceShipSprite?.TouchMove(newPos: CGPoint(x: pos.x, y: 50.0))
@@ -129,12 +155,14 @@ class GameScene: SKScene {
             let node = atPoint(location)
             
             if node.name == "spaceship" {
-               /* if let view = self.view{
-                    if let scene = SKScene(fileNamed: "GameStartScene") {
-                        scene.scaleMode = .aspectFit
-                        view.presentScene(scene)
-                    }
-                }*/
+                //add Bullet
+                self.bulletSprite = Bullet()
+                self.bulletSprite?.name = "bullet"
+                self.bulletSprite?.position = CGPoint(x: (spaceShipSprite?.position.x)! , y: 110)
+                let action = SKAction.moveTo(y: self.size.height + 30, duration: 1.0)
+                bulletSprite?.run(SKAction.repeatForever(action))
+                self.addChild(self.bulletSprite!)
+                
             }
         }
         
@@ -142,12 +170,15 @@ class GameScene: SKScene {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
+    
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+       
     }
     
+   
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
@@ -157,15 +188,32 @@ class GameScene: SKScene {
         self.spaceSprite?.Update()
         self.spaceShipSprite?.Update()
         self.planet1Sprite?.Update()
-         self.planet2Sprite?.Update()
-         self.planet3Sprite?.Update()
-        //self.alienShip1Sprite.Update()
+        self.planet2Sprite?.Update()
+        self.planet3Sprite?.Update()
+        self.alienShip1Sprite?.Update()
+        self.alienShip2Sprite?.Update()
+        self.alienShip3Sprite?.Update()
         
-        for alienship in alienShip1Sprite{
-            alienship.Update()
-          CollisionManager.CheckCllision(scene: self, object1: spaceShipSprite!, object2: alienship)
+        self.bulletSprite?.Update()
+        
+       CollisionManager.CheckCllision(scene: self, object1: spaceShipSprite!, object2: planet2Sprite!)
+        
+        CollisionManager.CheckCllision(scene: self, object1: spaceShipSprite!, object2: alienShip1Sprite!)
+        
+        
+        CollisionManager.CheckCllision(scene: self, object1: spaceShipSprite!, object2: alienShip2Sprite!)
+        
+        CollisionManager.CheckCllision(scene: self, object1: spaceShipSprite!, object2: alienShip3Sprite!)
+        
+        
+        CollisionManager.Explosion(scene: self, object1: alienShip1Sprite!, object2: bulletSprite!,object3: blastSprite!)
+     
+        CollisionManager.Explosion(scene: self, object1: alienShip2Sprite!, object2: bulletSprite!,object3: blastSprite!)
             
-        }
+       CollisionManager.Explosion(scene: self, object1: alienShip3Sprite!, object2: bulletSprite!,object3: blastSprite!)
+        
+        
+        
         //Update Labels
         
         if(ScoreManager.Lives > 0) {
@@ -174,12 +222,12 @@ class GameScene: SKScene {
         }
         else
         {
-            /*if let view = self.view{
+            if let view = self.view{
                 if let scene = SKScene(fileNamed: "GameOverScene") {
                     scene.scaleMode = .aspectFit
                     view.presentScene(scene)
                 }
-            }*/
+            }
         }
     }
 }
