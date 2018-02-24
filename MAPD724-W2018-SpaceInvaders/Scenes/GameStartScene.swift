@@ -1,11 +1,10 @@
-//
-//  GameScene.swift
-//  MAPD724-W2018-SpaceInvaders
-//
-//  Created by Tejal Patel on 2018-02-12.
-//  Copyright © 2018 Centennial College. All rights reserved.
-//
-
+/*
+ Date: 23/2/2018
+ FileName: GameStartScene.swift
+ Auther's Name: Tejal Patel,Amandeep Sekhon, Mankiran Kaur
+ Student ID: 300972812, 300976886, 300990016
+ file discription: GameStartScene is First Scene of game
+ */
 import SpriteKit
 import GameplayKit
 import UIKit
@@ -120,6 +119,7 @@ class GameStartScene: SKScene {
             
             let node = atPoint(location)
             
+            //Set button Click to Start Game to GameScene
               if node.name == "StartButton" {
                 if let view = self.view{
                     if let scene = SKScene(fileNamed: "GameScene") {
@@ -127,6 +127,7 @@ class GameStartScene: SKScene {
                         view.presentScene(scene)
                     }
                 }
+                //Set button Click go to GameInstructionScene
               }else  if node.name == "InstructionButton" {
                 if let view = self.view{
                     if let scene = SKScene(fileNamed: "GameInstructionScene") {

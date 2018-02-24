@@ -1,10 +1,3 @@
-//
-//  Button.swift
-//  MAPD724-W2018-SpaceInvaders
-//
-//  Created by Tejal Patel on 2018-02-16.
-//  Copyright © 2018 Centennial College. All rights reserved.
-//
 
 import SpriteKit
 

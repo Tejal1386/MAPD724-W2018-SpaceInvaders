@@ -1,11 +1,10 @@
-//
-//  GameScene.swift
-//  MAPD724-W2018-SpaceInvaders
-//
-//  Created by Tejal Patel on 2018-02-12.
-//  Copyright © 2018 Centennial College. All rights reserved.
-//
-
+/*
+ Date: 23/2/2018
+ FileName: GameScene.swift
+ Auther's Name: Tejal Patel,Amandeep Sekhon, Mankiran Kaur
+ Student ID: 300972812, 300976886, 300990016
+ file discription:GameScene is a main scene of the game
+ */
 import SpriteKit
 import GameplayKit
 import UIKit
@@ -17,7 +16,7 @@ var screenHeight: CGFloat?
 
 class GameScene: SKScene {
     
-    //Game Variable
+   
     //Game Variable
     var spaceSprite: Space?
     var spaceShipSprite: SpaceShip?
@@ -29,26 +28,18 @@ class GameScene: SKScene {
     var alienShip3Sprite: AlienShip?
     var bulletSprite: Bullet?
     var blastSprite: Blast?
-    var possibleAliens = ["AlienShip1", "AlienShip2", "AlienShip3"]
-    let alienCategory:UInt32 = 0x1 << 1
-    let photonTorpedoCategory:UInt32 = 0x1 << 0
-    
-    var gameTimer:Timer!
-    
+   
     var livesLabel: Label?
     var scoreLabel: Label?
     
+    var value1: Int?
+    var value2: Int?
+    var value3: Int?
     
     override func didMove(to view: SKView) {
         
         screenWidth = frame.width
         screenHeight = frame.height
-        
-        self.bulletSprite = Bullet()
-        self.bulletSprite?.name = "bullet"
-        self.blastSprite = Blast()
-        self.blastSprite?.name = "bullet"
-        
         
         //add space
         self.spaceSprite = Space()
@@ -62,10 +53,7 @@ class GameScene: SKScene {
         self.addChild(self.spaceShipSprite!)
         
         
-        // add Planet1
-        self.planet1Sprite = Planet(ImageString: "Planet1", InitialScale: 1.2)
-        self.addChild(self.planet1Sprite!)
-        
+       
         // add Planet2
         self.planet2Sprite = Planet(ImageString: "Planet2", InitialScale: 1.2)
         self.addChild(self.planet2Sprite!)
@@ -74,33 +62,24 @@ class GameScene: SKScene {
         self.planet3Sprite = Planet(ImageString: "Planet3", InitialScale: 1.0)
         self.addChild(self.planet3Sprite!)
         
-      
-       /* //add Alienship
-        for index in 0...2{
-         let alienship: AlienShip = AlienShip(ImageString: "AlienShip" + String(index+1), InitialScale: 1.5)
-         alienShip1Sprite.append(alienship)
-         self.addChild(alienShip1Sprite[index])
-         self.alienShip1Sprite[index].name = "AlienShip" + String(index+1)
-         
-         }*/
-        
-        // add AlienShip
+    
+        // add AlienShip1
         self.alienShip1Sprite = AlienShip(ImageString: "AlienShip1", InitialScale: 1.2)
         self.alienShip1Sprite?.name = "AlienShip1"
         self.addChild(self.alienShip1Sprite!)
         
-        
+        // add AlienShip1
         self.alienShip2Sprite = AlienShip(ImageString: "AlienShip2", InitialScale: 1.2)
         self.alienShip2Sprite?.name = "AlienShip2"
         self.addChild(self.alienShip2Sprite!)
         
+        // add AlienShip1
         self.alienShip3Sprite = AlienShip(ImageString: "AlienShip3", InitialScale: 1.2)
         self.alienShip3Sprite?.name = "AlienShip3"
         self.addChild(self.alienShip3Sprite!)
         
         
         //add label
-        
         livesLabel = Label(labelString: "Lives: 5", position: CGPoint(x: 20.0, y: frame.height - 20.0), fontSize: 30.0, fontName: "Dock51", fontColor: SKColor.yellow, isCentered: false)
         self.addChild(livesLabel!)
         
@@ -110,14 +89,14 @@ class GameScene: SKScene {
         self.addChild(scoreLabel!)
         
         
-    /*    //background sound
-        let engineSound = SKAudioNode(fileNamed: "engine.mp3")
+      //background sound
+        let engineSound = SKAudioNode(fileNamed: "background.mp3")
         self.addChild(engineSound)
         engineSound.autoplayLooped = true
         
-        //preload Sounds
+       //preload Sounds
         do{
-            let Sounds: [String] = ["thunder", "yay"]
+            let Sounds: [String] = ["blast", "score","bullet"]
             for sound in Sounds {
                 let path: String = Bundle.main.path(forResource: sound, ofType: "mp3")!
                 let url: URL = URL(fileURLWithPath: path)
@@ -127,7 +106,7 @@ class GameScene: SKScene {
         }
         catch {
             
-        } */
+        }
     }
     
  
@@ -148,23 +127,15 @@ class GameScene: SKScene {
        
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
         
-        if let touch = touches.first {
-            
-            let location = touch.location(in: self)
-            
-            let node = atPoint(location)
-            
-            if node.name == "spaceship" {
                 //add Bullet
                 self.bulletSprite = Bullet()
                 self.bulletSprite?.name = "bullet"
+                self.run(SKAction.playSoundFileNamed("bullet", waitForCompletion: false))
                 self.bulletSprite?.position = CGPoint(x: (spaceShipSprite?.position.x)! , y: 110)
-                let action = SKAction.moveTo(y: self.size.height + 30, duration: 1.0)
+                let action = SKAction.moveTo(y: self.size.height + 50, duration: 1.5)
                 bulletSprite?.run(SKAction.repeatForever(action))
                 self.addChild(self.bulletSprite!)
-                
-            }
-        }
+        
         
     }
     
@@ -193,28 +164,85 @@ class GameScene: SKScene {
         self.alienShip1Sprite?.Update()
         self.alienShip2Sprite?.Update()
         self.alienShip3Sprite?.Update()
-        
         self.bulletSprite?.Update()
+       
+        //Check Collision for SpaceShip and Planet(earth) to get 10 points
+        CollisionManager.CheckCllision(scene: self, object1: spaceShipSprite!, object2: planet2Sprite!)
         
-       CollisionManager.CheckCllision(scene: self, object1: spaceShipSprite!, object2: planet2Sprite!)
-        
+        //Check collision for alienShip and SpaceShip
         CollisionManager.CheckCllision(scene: self, object1: spaceShipSprite!, object2: alienShip1Sprite!)
-        
         
         CollisionManager.CheckCllision(scene: self, object1: spaceShipSprite!, object2: alienShip2Sprite!)
         
         CollisionManager.CheckCllision(scene: self, object1: spaceShipSprite!, object2: alienShip3Sprite!)
         
         
-        CollisionManager.Explosion(scene: self, object1: alienShip1Sprite!, object2: bulletSprite!,object3: blastSprite!)
-     
-        CollisionManager.Explosion(scene: self, object1: alienShip2Sprite!, object2: bulletSprite!,object3: blastSprite!)
+        
+        //Check Collision for Bullet and AlienShip
+        if((self.bulletSprite) != nil){
+         
+        //Check Collision for Bullet and AlienShip1
+        value1 =  CollisionManager.Explosion(scene: self, object1: bulletSprite!, object2: alienShip1Sprite!)
+            if(value1 == 1){
+                print("value1")
+                alienShip1Sprite?.removeFromParent()
+                  bulletSprite?.position.y = -1
+                self.bulletSprite?.removeFromParent()
+                
+                self.run(SKAction.wait(forDuration: 0.1)) {
+                    self.blastSprite?.removeFromParent()
+                }
+                
+                // add alien
+                self.alienShip1Sprite = AlienShip(ImageString: "AlienShip1", InitialScale: 1.2)
+                self.alienShip1Sprite?.name = "AlienShip1"
+                self.addChild(self.alienShip1Sprite!)
+                value1 = value1! + 1
+            }
+        //Check Collision for Bullet and AlienShip2
+        value2 =  CollisionManager.Explosion(scene: self, object1: bulletSprite!, object2: alienShip2Sprite!)
+            if(value2 == 1){
+                print("value2")
+                alienShip2Sprite?.removeFromParent()
+                bulletSprite?.position.y = -1
+                self.bulletSprite?.removeFromParent()
+                
+                // add alien
+                self.alienShip2Sprite = AlienShip(ImageString: "AlienShip2", InitialScale: 1.2)
+                self.alienShip2Sprite?.name = "AlienShip2"
+                self.addChild(self.alienShip2Sprite!)
+                value2 = value2! + 1
+            }
+           
+        //Check Collision for Bullet and AlienShip3
+        value3 =  CollisionManager.Explosion(scene: self, object1: bulletSprite!, object2: alienShip3Sprite!)
+       
+      
+        if(value3 == 1){
+            print("value3")
+            alienShip3Sprite?.removeFromParent()
+              bulletSprite?.position.y = -1
+             self.bulletSprite?.removeFromParent()
             
-       CollisionManager.Explosion(scene: self, object1: alienShip3Sprite!, object2: bulletSprite!,object3: blastSprite!)
+            //add blast
+            self.blastSprite = Blast()
+            blastSprite?.position = (alienShip3Sprite?.position)!
+            self.addChild(self.blastSprite!)
+            
+            self.run(SKAction.wait(forDuration: 0.1)) {
+                self.blastSprite?.removeFromParent()
+               
+            }
+            // add alien
+            self.alienShip3Sprite = AlienShip(ImageString: "AlienShip3", InitialScale: 1.2)
+            self.alienShip3Sprite?.name = "AlienShip3"
+            self.addChild(self.alienShip3Sprite!)
+            value3 = value3! + 1
+        }
+        }
         
         
-        
-        //Update Labels
+        //Update Labels for lives and Score
         
         if(ScoreManager.Lives > 0) {
             livesLabel?.text = "Lives: \( ScoreManager.Lives)"

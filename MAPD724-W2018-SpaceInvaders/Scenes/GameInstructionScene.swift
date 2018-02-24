@@ -1,11 +1,10 @@
-//
-//  GameScene.swift
-//  MAPD724-W2018-SpaceInvaders
-//
-//  Created by Tejal Patel on 2018-02-12.
-//  Copyright © 2018 Centennial College. All rights reserved.
-//
-
+/*
+ Date: 23/2/2018
+ FileName: GameInstructionScene.swift
+ Auther's Name: Tejal Patel,Amandeep Sekhon, Mankiran Kaur
+ Student ID: 300972812, 300976886, 300990016
+ file discription: GameInstructionScene is Showing basic information about game
+ */
 import SpriteKit
 import GameplayKit
 import UIKit
@@ -20,7 +19,6 @@ class GameInstructionScene: SKScene {
     var alienShipSprite: AlienShip?
     var bulletSprite: Bullet?
     var buttonBackSprite: Button?
-  
     var instructionLabel: Label?
     
     override func didMove(to view: SKView) {
@@ -38,9 +36,27 @@ class GameInstructionScene: SKScene {
         self.buttonBackSprite?.position = CGPoint(x: screenWidth! * 0.5, y: 80)
         self.addChild(self.buttonBackSprite!)
         
+        //add instruction Label
+        self.instructionLabel = Label(labelString: "Fly over Earth to get 15 points ", position: CGPoint(x: frame.width * 0.5 , y: (frame.height * 0.5) + 180), fontSize: 20.0, fontName: "Dock51", fontColor: SKColor.white, isCentered: true)
+        self.addChild(self.instructionLabel!)
+        
+        //add instruction Label
+        self.instructionLabel = Label(labelString: "kill AlienShip to get 10 points ", position: CGPoint(x: frame.width * 0.5 , y: (frame.height * 0.5) + 140), fontSize: 20.0, fontName: "Dock51", fontColor: SKColor.white, isCentered: true)
+        self.addChild(self.instructionLabel!)
         
         
-        //add gameOver Label
+        //add instruction Label
+        self.instructionLabel = Label(labelString: "To get extra life ", position: CGPoint(x: frame.width * 0.5 , y: (frame.height * 0.5) + 100), fontSize: 22.0, fontName: "Dock51", fontColor: SKColor.white, isCentered: true)
+        self.addChild(self.instructionLabel!)
+        
+       
+        
+        //add instruction Label
+        self.instructionLabel = Label(labelString: " collect 1000 points ", position: CGPoint(x: frame.width * 0.5 , y: (frame.height * 0.5) + 70), fontSize: 22.0, fontName: "Dock51", fontColor: SKColor.white, isCentered: true)
+        self.addChild(self.instructionLabel!)
+        
+        
+        //add Title Label
         self.instructionLabel = Label(labelString: "Instructions", position: CGPoint(x: frame.width * 0.5 , y: (frame.height * 0.5) + 250), fontSize: 50.0, fontName: "Dock51", fontColor: SKColor.red, isCentered: true)
         self.addChild(self.instructionLabel!)
    
@@ -68,7 +84,7 @@ class GameInstructionScene: SKScene {
             let location = touch.location(in: self)
             
             let node = atPoint(location)
-            
+            // Set Back Button click to go back on GameStartScene
             if node.name == "ButtonBack" {
                 if let view = self.view{
                     if let scene = SKScene(fileNamed: "GameStartScene") {

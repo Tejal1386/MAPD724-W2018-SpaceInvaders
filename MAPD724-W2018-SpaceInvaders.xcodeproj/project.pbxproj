@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		E438D1CF203F677800E21E44 /* bullet.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E438D1CD203F677700E21E44 /* bullet.mp3 */; };
 		E438D1D0203F677800E21E44 /* blast.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E438D1CE203F677700E21E44 /* blast.mp3 */; };
+		E438D1D3203F6B3D00E21E44 /* score.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E438D1D1203F6B3D00E21E44 /* score.mp3 */; };
+		E438D1D4203F6B3D00E21E44 /* background.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E438D1D2203F6B3D00E21E44 /* background.mp3 */; };
 		E44AF0692038B72A004C9E0D /* SpaceShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44AF0682038B72A004C9E0D /* SpaceShip.swift */; };
 		E44AF06C2038B978004C9E0D /* AlienShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44AF06A2038B978004C9E0D /* AlienShip.swift */; };
 		E44AF06D2038B978004C9E0D /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44AF06B2038B978004C9E0D /* Planet.swift */; };
@@ -41,6 +43,8 @@
 /* Begin PBXFileReference section */
 		E438D1CD203F677700E21E44 /* bullet.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bullet.mp3; sourceTree = "<group>"; };
 		E438D1CE203F677700E21E44 /* blast.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = blast.mp3; sourceTree = "<group>"; };
+		E438D1D1203F6B3D00E21E44 /* score.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = score.mp3; sourceTree = "<group>"; };
+		E438D1D2203F6B3D00E21E44 /* background.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background.mp3; sourceTree = "<group>"; };
 		E44AF0682038B72A004C9E0D /* SpaceShip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceShip.swift; sourceTree = "<group>"; };
 		E44AF06A2038B978004C9E0D /* AlienShip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienShip.swift; sourceTree = "<group>"; };
 		E44AF06B2038B978004C9E0D /* Planet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 		E45BCF14203156DD0084CA89 /* MAPD724-W2018-SpaceInvaders */ = {
 			isa = PBXGroup;
 			children = (
+				E438D1D2203F6B3D00E21E44 /* background.mp3 */,
+				E438D1D1203F6B3D00E21E44 /* score.mp3 */,
 				E438D1CE203F677700E21E44 /* blast.mp3 */,
 				E438D1CD203F677700E21E44 /* bullet.mp3 */,
 				E4FDCF5F203A9E2F00812A44 /* Manager */,
@@ -225,7 +231,9 @@
 				E462EA1F203760CE00D40977 /* GameStartScene.sks in Resources */,
 				E45BCF18203156DD0084CA89 /* GameScene.sks in Resources */,
 				E45BCF23203156DD0084CA89 /* Assets.xcassets in Resources */,
+				E438D1D4203F6B3D00E21E44 /* background.mp3 in Resources */,
 				E462EA1B20375F1F00D40977 /* Dock51.ttf in Resources */,
+				E438D1D3203F6B3D00E21E44 /* score.mp3 in Resources */,
 				E438D1D0203F677800E21E44 /* blast.mp3 in Resources */,
 				E45BCF26203156DD0084CA89 /* LaunchScreen.storyboard in Resources */,
 				E456C379203B6E9100FF2676 /* GameOverScene.sks in Resources */,

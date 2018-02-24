@@ -1,10 +1,10 @@
-//
-//  GameScene.swift
-//  MAPD724-W2018-SpaceInvaders
-//
-//  Created by Tejal Patel on 2018-02-12.
-//  Copyright © 2018 Centennial College. All rights reserved.
-//
+/*
+ Date: 23/2/2018
+ FileName: GameOverScene.swift
+ Auther's Name: Tejal Patel,Amandeep Sekhon, Mankiran Kaur
+ Student ID: 300972812, 300976886, 300990016
+ file discription: When GameOver this scene appear on screen
+ */
 
 import SpriteKit
 import GameplayKit
@@ -34,13 +34,19 @@ class GameOverScene: SKScene {
         
         // add SpaceShip
         self.spaceShipSprite = SpaceShip()
-        self.spaceShipSprite?.position = CGPoint(x: screenWidth! * 0.5, y: 120)
+        self.spaceShipSprite?.position = CGPoint(x: screenWidth! * 0.5, y: 180)
         self.addChild(self.spaceShipSprite!)
     
         //add button
         self.buttonStartSprite = Button(ImageString: "playagain", InitialScale: 1.7)
         self.buttonStartSprite?.name = "playagain"
         self.buttonStartSprite?.position = CGPoint(x: screenWidth! * 0.5, y: 280)
+        self.addChild(self.buttonStartSprite!)
+        
+        //add button
+        self.buttonStartSprite = Button(ImageString: "start-button", InitialScale: 1.7)
+        self.buttonStartSprite?.name = "StartButton"
+        self.buttonStartSprite?.position = CGPoint(x: screenWidth! * 0.5, y: 80)
         self.addChild(self.buttonStartSprite!)
         
         
@@ -72,6 +78,7 @@ class GameOverScene: SKScene {
             
             let node = atPoint(location)
             
+            //Reset Game 
               if node.name == "playagain" {
                 ScoreManager.Lives = 5
                 ScoreManager.Score = 0
@@ -83,6 +90,18 @@ class GameOverScene: SKScene {
                     }
                 }
               }
+            //Reset Game and Go Back to main Screen
+            if node.name == "StartButton" {
+                ScoreManager.Lives = 5
+                ScoreManager.Score = 0
+                
+                if let view = self.view{
+                    if let scene = SKScene(fileNamed: "GameStartScene") {
+                        scene.scaleMode = .aspectFit
+                        view.presentScene(scene)
+                    }
+                }
+            }
         }
         
        
